@@ -70,7 +70,7 @@ function createItem(filePath, relatePath, fileName) {
     splitPath.splice(splitPath.length - 3, 3);
     let groupId = '';
     for (let nameIndex in splitPath) {
-        let name = nameIndex === 0 ? splitPath[nameIndex] : '.' + splitPath[nameIndex];
+        let name = nameIndex == 0 ? splitPath[nameIndex] : '.' + splitPath[nameIndex];
         groupId = groupId + name;
     }
 
