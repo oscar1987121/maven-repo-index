@@ -1,6 +1,6 @@
 {
   "name": "maven-repo-index",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "repository": "git://github.com/oscar1987121/maven-repo-index.git",

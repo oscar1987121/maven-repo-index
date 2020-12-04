@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-function listAll(localRepo) {
+function listAll(localRepo, type) {
     return new Promise((res, rej) => {
-        let resultList = [];
+        let resultObj = type && type === 'object' ? {} : [];
         if (!fs.existsSync(localRepo)) {
             rej('local repo is not existed');
         } else {
@@ -12,25 +12,46 @@ function listAll(localRepo) {
                     continue;
                 }
                 let filePath = path.join(localRepo, fileName);
-                explore(filePath, fileName, resultList);
+                explore(filePath, fileName, resultObj);
             }
             res(resultList);
         }
     })
 }
 
-function explore(parentPath, relatePath, resultList) {
+function explore(parentPath, relatePath, resultData) {
     for (let fileName of fs.readdirSync(parentPath)) {
         if (fileName.startsWith('.')) {
             continue;
         }
         let filePath = path.join(parentPath, fileName);
         if (fs.statSync(filePath).isDirectory()) {
-            explore(filePath, relatePath + path.sep + fileName,resultList);
+            explore(filePath, relatePath + path.sep + fileName, resultData);
         } else {
             let fileExtension = getFileExtension(fileName);
             if (fileExtension === '.jar' && fileName.indexOf('-source') === -1) {
-                resultList.push(createItem(filePath, relatePath + path.sep + fileName, fileName));
+
+                let item = createItem(filePath, relatePath + path.sep + fileName, fileName);
+                if (Array.isArray(resultData)) {
+                    resultData.push(item);
+                } else {
+                    let group = resultData[item.groupId];
+                    if (!group) {
+                        group = {};
+                        resultData[item.groupId] = group;
+                    }
+                    let artifact = group[item.artifactId];
+                    if (!artifact) {
+                        artifact = {};
+                        group[item.artifactId] = artifact;
+                    }
+                    let version = artifact[item.version];
+                    if (!version) {
+                        artifact[item.version] = item;
+                    }
+                }
+
+
             }
         }
     }
@@ -39,13 +60,13 @@ function explore(parentPath, relatePath, resultList) {
 function createItem(filePath, relatePath, fileName) {
 
     let splitPath = relatePath.split(path.sep);
-    if(splitPath.length < 4){
+    if (splitPath.length < 4) {
         return null;
     }
     let version = splitPath[splitPath.length - 2];
     let artifactId = splitPath[splitPath.length - 3];
 
-    
+
     splitPath.splice(splitPath.length - 3, 3);
     let groupId = '';
     for (let nameIndex in splitPath) {
