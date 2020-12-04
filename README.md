@@ -25,11 +25,11 @@ mavenRepo.listAll('/your/repo/url');
 response json field
 ```json
 {
-    groupId: 'group id',
-    artifactId : 'artifact id',
-    version: 'version',
-    filePath: 'absolute url',
-    fileName: 'jar full name',
-    relatePath: 'relative rul'
+    "groupId": "group id",
+    "artifactId" : "artifact id",
+    "version": "version,
+    "filePath": "absolute url",
+    "fileName": "jar full name",
+    "relatePath": "relative rul"
 }
 ```
