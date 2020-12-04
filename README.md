@@ -17,7 +17,8 @@ mavenRepo.listAll('/your/repo/url');
 # API
 
 | API | What it does |
-|`.listAll(repoFolderUrl) | list all the jar info in the repository |
+|-----|--------------|
+| `.listAll(repoFolderUrl)` | list all the jar info in the repository |
 
 ## listAll
 
