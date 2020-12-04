@@ -14,7 +14,7 @@ function listAll(localRepo, type) {
                 let filePath = path.join(localRepo, fileName);
                 explore(filePath, fileName, resultObj);
             }
-            res(resultList);
+            res(resultObj);
         }
     })
 }
