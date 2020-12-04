@@ -27,7 +27,7 @@ response json field
 {
     "groupId": "group id",
     "artifactId" : "artifact id",
-    "version": "version,
+    "version": "version",
     "filePath": "absolute url",
     "fileName": "jar full name",
     "relatePath": "relative rul"
