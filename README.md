@@ -26,10 +26,10 @@ response json field
 ```json
 {
     groupId: 'group id',
-    artifactId: 'artifact id',
+    artifactId : 'artifact id',
     version: 'version',
-    filePath: 'absolation url',
+    filePath: 'absolute url',
     fileName: 'jar full name',
-    relatePath: 'relative url'
+    relatePath: 'relative rul'
 }
 ```
